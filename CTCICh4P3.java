@@ -98,13 +98,13 @@ public class CTCICh4P3 {
     }
     
     public static void printProblemAnswer(ArrayList<LinkedTreeList> answer) {
-        String line = "{";
+        String line = "{{";
         ListTreeNode current = answer.get(0).head;
         while (current.next != null) {
             line = line + current.data.data + ", ";
             current = current.next;
         }
-        line = line + current.data.data + "}";
+        line = line + current.data.data + "},";
         System.out.println(line);
         for (int i = 1; i < answer.size()-1; i++) {
             line = "";
@@ -114,7 +114,7 @@ public class CTCICh4P3 {
                 line = line + current.data.data + ", ";
                 current = current.next;
             }
-            line = line + current.data.data + "}";
+            line = line + current.data.data + "},";
             System.out.println(line);
         }
         line = "";
