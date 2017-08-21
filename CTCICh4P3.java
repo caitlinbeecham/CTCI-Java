@@ -32,27 +32,17 @@ public class CTCICh4P3 {
     public static Tree ConstructBST(int[] list) {
         //list is assumed to be sorted
         ArrayList<Integer> midIdxs = IterativelyFindMidIdxs(list.length);
-        //System.out.println("Mids");
-        //printArrayListInt(midIdxs);
-        //System.out.println();
         int[] BSTList = new int[list.length];
         for (int i = 0; i < midIdxs.size(); i++) {
             int idx = midIdxs.get(i);
             int itm_to_add = list[idx];
             BSTList[i] = itm_to_add;
         }
-        //System.out.println("BSTList");
-        //printIntList(BSTList);
-        //System.out.println();
         TreeNode root = new TreeNode(BSTList[0]);
         Tree t = new Tree(root);
-        //System.out.println("a");
-        //System.out.println();
         for (int i = 1; i < BSTList.length; i++) {
             t = addBSTNode(t,BSTList[i]);
-            //System.out.println(i);
         }
-        //System.out.println("for loop exited");
         return t;
         
     }
@@ -139,17 +129,9 @@ public class CTCICh4P3 {
     }
     
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         int[] list = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-        //ArrayList<Integer> mids = IterativelyFindMidIdxs(list.length);
-        //printArrayListInt(mids);
         Tree t = ConstructBST(list);
-        //System.out.println("BST Constructed!");
-        
-        //System.out.println("t.get_size()");
-        //System.out.println(t.get_size());
         ArrayList<LinkedTreeList> answer = t.returnLevelLists();
-        //System.out.println("we did all the things");
         printProblemAnswer(answer);
     }
     
@@ -389,21 +371,17 @@ class Tree {
     }
     
     public int get_size() {
-        //System.out.println("getting size of tree");
         TreeStack stack = new TreeStack();
         TreeNode current = this.root;
         int count = 0;
         while ((current != null) || (!(stack.isEmpty()))) {
             if (current != null) {
-                //System.out.println("the if statement eval to true");
                 stack.push(current);
-                //count = count + 1;
                 current = current.left;
                 
             }
             else {
                 //i.e. if (!(stack.isEmpty()))
-                //System.out.println("else");
                 current = stack.pop();
                 count = count + 1;
                 current = current.right;
@@ -415,44 +393,20 @@ class Tree {
     
     
     public ArrayList<LinkedTreeList> returnLevelLists() {
-        //assuming the tree is complete
-        //assuming tree is not empty
-        //System.out.println("i");
         TreeQueue queue = new TreeQueue();
-        //queue.TreeQueueElts();
         ArrayList<TreeNode> NodesByLevel = new ArrayList<TreeNode>();
         queue.enqueue(this.root);
-        //queue.printTreeQueueElts();
-        //count used for debugging purposes
-        int count = 0;
         boolean test = (NodesByLevel.size() < this.get_size());
-        //System.out.println("test");
-        //System.out.println(test);
-        //System.out.println("NodesByLevel.size()");
-        //System.out.println(NodesByLevel.size());
-        //System.out.println("this.get_size()");
-        //System.out.println(this.get_size());
         while (NodesByLevel.size() < this.get_size()) {
             TreeNode current = queue.dequeue();
             NodesByLevel.add(current);
-            //System.out.println("ii");
             if (current.left != null) {
                 queue.enqueue(current.left);
             }
             if (current.right != null) {
                 queue.enqueue(current.right);
             }
-            count = count + 1;
-            //System.out.println("count");
-            //System.out.println(count);
-            //queue.printTreeQueueElts();
-            //System.out.println("NodesByLevel.size()");
-            //System.out.println(NodesByLevel.size());
-            //System.out.println("this.get_size()");
-            //System.out.println(this.get_size());
-            //System.out.println();
         }
-        //System.out.println("first while loop exited");
         ArrayList<LinkedTreeList> ret = new ArrayList<LinkedTreeList>();
         ListTreeNode rootNode = new ListTreeNode(NodesByLevel.get(0));
         LinkedTreeList level_0_list = new LinkedTreeList(rootNode);
