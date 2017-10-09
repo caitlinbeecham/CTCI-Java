@@ -92,7 +92,7 @@ public class CTCICh4P5 {
         //stack.push(current);
         while ((!(stack.isEmpty())) || (current != null)) {
             if (current != null) {
-                if ((current.left != null) && (current.data < current.left.data)) {
+                if ((current.left != null) && !(NodesInLeftSubtreeLessThanParent(current))) {
                     return false;
                 }
                 stack.push(current);
@@ -100,14 +100,51 @@ public class CTCICh4P5 {
             }
             else {
                 current = stack.pop();
-                if ((current.right != null) && (current.data >= current.right.data)) {
+                if ((current.right != null) && !(NodesInRightSubtreeGreaterThanParent(current))) {
                     return false;
                 }
                 current = current.right;
             }
         }
         return true;
-        
+    }
+    
+    public static NodesInLeftSubtreeLessThanParent(TreeNode parent) {
+        boolean ret = true;
+        TreeQueue q = new TreeQueue();
+        q.enqueue(parent.left);
+        while !(q.isEmpty()) {
+            TreeNode current = q.dequeue();
+            if (current.data >= parent.data) {
+                return false;
+            }
+            if (current.left != null) {
+                q.enqueue(current.left);
+            }
+            if (current.right != null) {
+                q.enqueue(current.right);
+            }
+        }
+        return ret;
+    }
+    
+    public static NodesInRightSubtreeGreaterThanParent(TreeNode parent) {
+        boolean ret = true;
+        TreeQueue q = new TreeQueue();
+        q.enqueue(parent.right);
+        while !(q.isEmpty()) {
+            TreeNode current = q.dequeue();
+            if (current.data <= parent.data) {
+                return false;
+            }
+            if (current.left != null) {
+                q.enqueue(current.left);
+            }
+            if (current.right != null) {
+                q.enqueue(current.right);
+            }
+        }
+        return ret;
     }
     
     public static void main(String[] args) {
@@ -242,5 +279,61 @@ class TreeStackNode {
     public TreeStackNode(TreeNode data) {
         this.data = data;
         this.next = null;
+    }
+}
+
+class TreeQueue {
+    TreeQueueNode head;
+    TreeQueueNode tail;
+    public TreeQueue() {
+        this.head = null;
+        this.tail = null;
+    }
+    
+    public boolean isEmpty() {
+        return (this.head == null);
+    }
+    
+    public void enqueue(TreeNode node) {
+        TreeQueueNode new_node = TreeQueueNode(node);
+        if (this.isEmpty()) {
+            this.head = new_node;
+            this.tail = new_node;
+        }
+        else {
+            this.tail.next = new_node;
+            this.tail = new_node;
+        }
+    }
+    
+    public TreeNode dequeue() {
+        if this.isEmpty() {
+            throw new EmptyStackException();
+        }
+        else if (this.head == this.tail) {
+            //1 item in queue
+            TreeNode ret = this.head.data;
+            this.head = null;
+            this.tail = null;
+        }
+        else {
+            TreeNode ret = this.head.data;
+            this.head = this.head.next;
+        }
+        return ret;
+    }
+}
+
+class TreeQueueNode {
+    TreeNode data;
+    TreeQueueNode next;
+    public TreeQueueNode(TreeNode data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class EmptyStackException extends Exception {
+    public EmptyStackException() {
     }
 }
