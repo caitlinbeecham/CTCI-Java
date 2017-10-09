@@ -333,7 +333,4 @@ class TreeQueueNode {
     }
 }
 
-class EmptyStackException extends Exception {
-    public EmptyStackException() {
-    }
-}
+
