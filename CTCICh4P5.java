@@ -6,7 +6,7 @@ public class CTCICh4P5 {
     
     /**
      * write method to check if a binary tree is a bst
-     * imma do it iteratively cause why the fuck not
+     * imma do it iteratively cause why not
      */
     public static Tree addBSTNode(Tree t, int data) {
         TreeNode current = t.root;
