@@ -89,7 +89,7 @@ public class CTCICh4P5 {
     public static boolean ValidateBST(Tree t) {
         TreeNode current  = t.root;
         TreeStack stack = new TreeStack();
-        stack.push(current);
+        //stack.push(current);
         while ((!(stack.isEmpty())) || (current != null)) {
             if (current != null) {
                 if ((current.left != null) && !(NodesInLeftSubtreeLessThanParent(current))) {
