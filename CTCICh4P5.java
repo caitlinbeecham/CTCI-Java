@@ -92,7 +92,7 @@ public class CTCICh4P5 {
         //stack.push(current);
         while ((!(stack.isEmpty())) || (current != null)) {
             if (current != null) {
-                if ((current.left != null) && !(NodesInLeftSubtreeLessThanParent(current))) {
+                if ((current.left != null) && (!(NodesInLeftSubtreeLessThanParent(current))) || !(NodesInRightSubtreeGreaterThanParent(current))))) {
                     return false;
                 }
                 stack.push(current);
@@ -100,7 +100,7 @@ public class CTCICh4P5 {
             }
             else {
                 current = stack.pop();
-                if ((current.right != null) && !(NodesInRightSubtreeGreaterThanParent(current))) {
+                if ((current.right != null) && (!(NodesInLeftSubtreeLessThanParent(current))) || !(NodesInRightSubtreeGreaterThanParent(current))))) {
                     return false;
                 }
                 current = current.right;
